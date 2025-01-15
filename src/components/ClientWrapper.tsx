@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import Hero from "@/components/Hero";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
-const App: React.FC = () => {
+const ClientWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [language, setLanguage] = useState<"es" | "en">("es");
 
@@ -25,9 +26,16 @@ const App: React.FC = () => {
           : "bg-white text-gray-900"
       }`}
     >
-      <Hero language={language} theme={theme} />
+      <Header
+        toggleTheme={toggleTheme}
+        changeLanguage={changeLanguage}
+        language={language}
+        theme={theme}
+      />
+      <main>{children}</main>
+      <Footer language={language} />
     </div>
   );
 };
 
-export default App;
+export default ClientWrapper;
