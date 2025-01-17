@@ -4,11 +4,11 @@ import React from "react";
 
 const PolerasPage: React.FC = () => {
   return (
-    <div className="p-8 min-h-screen bg-gradient-to-br from-gray-50 to-gray-200">
+    <div className="p-8 min-h-screen bg-gradient-to-br from-black-50 to-black-200">
       {/* Título */}
       <div className="text-center mb-12">
-        <h1 className="text-5xl font-extrabold text-gray-800 dark:text-gray-100 mb-4">Próximamente: Hoodies</h1>
-        <p className="text-lg text-gray-600 dark:text-gray-300">
+        <h1 className="text-5xl font-extrabold text-black-800 dark:text-black-100 mb-4">Próximamente: Hoodies</h1>
+        <p className="text-lg text-black-600 dark:text-black-300">
           ¡Estamos preparando la colección perfecta para ti!
         </p>
       </div>
@@ -30,7 +30,7 @@ const PolerasPage: React.FC = () => {
 
       {/* Información adicional */}
       <div className="mt-12 text-center">
-        <p className="text-lg text-gray-600 dark:text-gray-300">
+        <p className="text-lg text-black-600 dark:text-black-300">
           Suscríbete a nuestras redes sociales para enterarte del lanzamiento.
         </p>
       </div>

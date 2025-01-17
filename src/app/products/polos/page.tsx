@@ -18,14 +18,17 @@ export default function ProductsPage() {
   const applyFiltersAndSort = () => {
     let result = [...mockProducts];
 
+    // Filtrar por disponibilidad
     if (availabilityFilter) {
       result = result.filter((product) => product.available);
     }
 
+    // Filtrar por rango de precio
     result = result.filter(
       (product) => product.price >= priceRange[0] && product.price <= priceRange[1]
     );
 
+    // Ordenar según la opción seleccionada
     switch (sortOption) {
       case "price-asc":
         result.sort((a, b) => a.price - b.price);
@@ -152,21 +155,48 @@ export default function ProductsPage() {
                   </div>
 
                   {/* Hover Detalles */}
-                  <div className="absolute inset-0 bg-white bg-opacity-90 flex flex-col items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute inset-0 bg-white bg-opacity-90 flex flex-col items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
                     <h3 className="font-bold text-lg">{product.name}</h3>
                     <p className="text-gray-600">Precio: S/ {product.price.toFixed(2)}</p>
                     <p className="font-semibold">Colores:</p>
-                    <div className="flex gap-2">
-                      {product.colors.map((color) => (
-                        <div
-                          key={color}
-                          className="w-6 h-6 rounded-full border"
-                          style={{
-                            backgroundColor: color.toLowerCase(),
-                            borderColor: color.toLowerCase() === "blanco" ? "black" : "transparent",
-                          }}
-                        ></div>
-                      ))}
+                    <div className="flex gap-4">
+                      {product.colors.map((color) => {
+                        const colorMap: { [key: string]: string } = {
+                          rojo: "red",
+                          blanco: "white",
+                          negro: "black",
+                          azul: "blue",
+                          amarillo: "yellow",
+                          verde: "green",
+                          naranja: "orange",
+                          morado: "purple",
+                          rosa: "pink",
+                          marrón: "brown",
+                          gris: "gray",
+                          celeste: "skyblue",
+                          dorado: "gold",
+                          plateado: "silver",
+                          violeta: "violet",
+                          aqua: "aqua",
+                        };
+
+                        const isLightColor = ["blanco", "amarillo", "plateado", "aqua", "celeste"].includes(
+                          color.toLowerCase()
+                        );
+
+                        return (
+                          <div key={color} className="flex flex-col items-center">
+                            <div
+                              className="w-10 h-10 rounded-full border-2 shadow-md"
+                              style={{
+                                backgroundColor: colorMap[color.toLowerCase()] || color.toLowerCase(),
+                                borderColor: isLightColor ? "black" : "white",
+                              }}
+                            ></div>
+                            <span className="text-sm font-medium capitalize">{color}</span>
+                          </div>
+                        );
+                      })}
                     </div>
                     <p className="font-semibold">Tallas:</p>
                     <div className="flex gap-2">
@@ -183,7 +213,6 @@ export default function ProductsPage() {
                 </div>
               ))
             ) : (
-              // Mensaje si no hay productos disponibles
               <div className="col-span-full text-center py-12">
                 <h2 className="text-2xl font-bold text-gray-700">No se encontraron productos</h2>
                 <p className="text-gray-500">

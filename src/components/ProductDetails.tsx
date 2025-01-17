@@ -10,7 +10,7 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
-  const [isZoomed, setIsZoomed] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const productId = Number(params.id);
@@ -25,14 +25,41 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
     }
   }, [params]);
 
-  const toggleZoom = () => setIsZoomed(!isZoomed);
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const colorMap: { [key: string]: string } = {
+    rojo: "red",
+    blanco: "white",
+    negro: "black",
+    azul: "blue",
+    amarillo: "yellow",
+    verde: "green",
+    naranja: "orange",
+    morado: "purple",
+    rosa: "pink",
+    marrón: "brown",
+    gris: "gray",
+    celeste: "skyblue",
+    dorado: "gold",
+    plateado: "silver",
+    violeta: "violet",
+    aqua: "aqua",
+  };
+
+  const relatedProducts = mockProducts.slice(0, 3);
 
   if (!product) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-        <h1 className="text-3xl font-bold text-gray-700">Producto no encontrado</h1>
+        <h1 className="text-4xl font-bold text-gray-700">Producto no encontrado</h1>
         <button
-          className="mt-6 px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+          className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition"
           onClick={() => router.back()}
         >
           Volver
@@ -42,39 +69,33 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 flex flex-col items-center">
+    <div className="min-h-screen bg-gray-50 p-8 flex flex-col items-center">
+      {/* Botón Volver */}
       <button
-        className="mb-4 px-5 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+        className="mb-6 px-6 py-3 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition"
         onClick={() => router.back()}
       >
         Volver
       </button>
-      <div className="bg-white shadow-lg rounded-lg p-6 max-w-5xl w-full flex flex-col md:flex-row gap-8">
+
+      {/* Contenedor principal */}
+      <div className="bg-white shadow-2xl rounded-lg p-8 max-w-6xl w-full flex flex-col md:flex-row gap-12">
         {/* Galería de imágenes */}
-        <div className="flex-1 flex flex-col items-center">
-          <div
-            className={`w-full max-h-96 overflow-hidden rounded-lg border ${
-              isZoomed ? "cursor-zoom-out" : "cursor-zoom-in"
-            }`}
-            onClick={toggleZoom}
-          >
-            <img
-              src={currentImage || product.images[0]}
-              alt={product.name}
-              className={`w-full h-full object-contain ${
-                isZoomed ? "scale-150" : "scale-100"
-              } transition-transform duration-300`}
-            />
-          </div>
-          <div className="flex gap-3 mt-4">
+        <div className="flex-1 flex flex-col gap-4 items-center">
+          <img
+            src={currentImage || product.images[0]}
+            alt={product.name}
+            className="w-full max-h-96 object-contain rounded-lg border-2 shadow-md"
+          />
+          <div className="flex gap-4 mt-4">
             {product.images.map((img: string, idx: number) => (
               <img
                 key={idx}
                 src={img}
                 alt={`Thumbnail ${idx + 1}`}
-                className={`w-16 h-16 object-cover rounded-lg border ${
-                  currentImage === img ? "border-blue-500" : "border-gray-300"
-                } cursor-pointer`}
+                className={`w-20 h-20 object-cover rounded-lg border-2 ${
+                  currentImage === img ? "border-blue-600" : "border-gray-300"
+                } cursor-pointer hover:border-blue-500 transition`}
                 onClick={() => setCurrentImage(img)}
               />
             ))}
@@ -82,79 +103,76 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
         </div>
 
         {/* Detalles del producto */}
-        <div className="flex-1 flex flex-col gap-6">
-          <h1 className="text-4xl font-bold text-gray-800">{product.name}</h1>
-          <p className="text-lg text-gray-600">{product.description}</p>
-          <p className="text-2xl font-semibold text-green-600">
-            Precio: S/ {product.price.toFixed(2)}
-          </p>
+        <div className="flex-1 flex flex-col gap-8">
+          <div className="flex flex-col gap-2">
+            <h1 className="text-4xl font-extrabold text-gray-900">{product.name}</h1>
+            <p className="text-lg text-gray-600">{product.description}</p>
+            <p className="text-3xl font-bold text-green-600">
+              S/ {product.price.toFixed(2)}
+            </p>
+          </div>
 
           {/* Selección de colores */}
-          {product.colors?.length > 0 ? (
-            <div>
-              <h3 className="font-semibold text-lg mb-2">Colores:</h3>
-              <div className="grid grid-cols-3 gap-3">
-                {product.colors.map((color: string) => (
-                  <button
+          <div className="flex flex-col gap-4">
+            <h3 className="font-semibold text-xl">Colores:</h3>
+            <div className="flex gap-4">
+              {product.colors.map((color: string) => {
+                const cssColor = colorMap[color.toLowerCase()] || color.toLowerCase();
+                const isLightColor = ["white", "yellow", "silver", "aqua", "skyblue"].includes(
+                  cssColor
+                );
+                return (
+                  <div
                     key={color}
-                    className={`flex items-center justify-center h-10 rounded-lg border transition ${
+                    className={`w-12 h-12 rounded-full border-4 ${
                       selectedColor === color
-                        ? "bg-blue-500 text-white border-blue-500"
-                        : "bg-gray-100 text-gray-800 border-gray-300"
-                    } hover:bg-blue-400 hover:text-white`}
+                        ? "border-blue-600 ring-2 ring-blue-300"
+                        : "border-gray-300"
+                    } cursor-pointer hover:scale-110 transition-transform`}
                     style={{
-                      backgroundColor:
-                        color.toLowerCase() === "blanco" ||
-                        color.toLowerCase() === "plomo"
-                          ? undefined
-                          : color.toLowerCase(),
-                      color:
-                        color.toLowerCase() === "blanco" ||
-                        color.toLowerCase() === "plomo"
-                          ? "black"
-                          : undefined,
+                      backgroundColor: cssColor,
+                      borderColor: isLightColor ? "black" : undefined,
                     }}
                     onClick={() => setSelectedColor(color)}
-                  >
-                    {color}
-                  </button>
-                ))}
-              </div>
+                  ></div>
+                );
+              })}
             </div>
-          ) : (
-            <p className="text-gray-600">No hay colores disponibles</p>
-          )}
+          </div>
 
           {/* Selección de tallas */}
-          {product.sizes?.length > 0 ? (
-            <div>
-              <h3 className="font-semibold text-lg mb-2">Tallas:</h3>
-              <div className="flex gap-3">
-                {product.sizes.map((size: string) => (
-                  <button
-                    key={size}
-                    className={`px-4 py-2 rounded-lg border ${
-                      selectedSize === size
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-100 text-gray-800"
-                    } hover:bg-blue-400 hover:text-white transition`}
-                    onClick={() => setSelectedSize(size)}
-                  >
-                    {size}
-                  </button>
-                ))}
-              </div>
+          <div className="flex flex-col gap-4">
+            <h3 className="font-semibold text-xl">Tallas:</h3>
+            <div className="flex gap-4">
+              {product.sizes.map((size: string) => (
+                <button
+                  key={size}
+                  className={`px-6 py-3 rounded-lg border-2 text-lg font-semibold ${
+                    selectedSize === size
+                      ? "bg-blue-600 text-white border-blue-600"
+                      : "bg-gray-100 text-gray-800 border-gray-300"
+                  } hover:bg-blue-500 hover:text-white transition`}
+                  onClick={() => setSelectedSize(size)}
+                >
+                  {size}
+                </button>
+              ))}
             </div>
-          ) : (
-            <p className="text-gray-600">No hay tallas disponibles</p>
-          )}
+            {/* Botón para abrir la tabla de medidas */}
+            <button
+              className="mt-4 px-6 py-3 bg-gray-800 text-white rounded-lg shadow-lg hover:bg-gray-700 transition"
+              onClick={handleOpenModal}
+            >
+              Ver Tabla de Medidas
+            </button>
+          </div>
 
           {/* Botón de WhatsApp */}
           <a
             href={`https://wa.me/51975885868?text=${encodeURIComponent(
               `Hola, estoy interesado en el producto: ${product.name}. \nColor: ${selectedColor || "No seleccionado"}. \nTalla: ${selectedSize || "No seleccionada"}.`
             )}`}
-            className={`mt-6 px-5 py-2 rounded-lg text-center ${
+            className={`px-6 py-3 rounded-lg text-lg font-semibold text-center ${
               selectedColor && selectedSize
                 ? "bg-green-500 text-white hover:bg-green-600"
                 : "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -167,6 +185,61 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
           >
             Preguntar por WhatsApp
           </a>
+        </div>
+      </div>
+
+      {/* Descripción del Producto */}
+      <div className="mt-16 w-full max-w-4xl">
+        <h3 className="text-2xl font-bold mb-4">Descripción del Producto</h3>
+        <div className="bg-gray-100 p-6 rounded-lg shadow-md">
+          <pre className="whitespace-pre-wrap text-gray-800 text-lg">
+            {product.detailedDescription}
+          </pre>
+        </div>
+      </div>
+
+      {/* Reseñas */}
+      <div className="mt-16 w-full max-w-4xl">
+        <h3 className="text-2xl font-bold mb-4">Reseñas de Clientes</h3>
+        <div className="flex flex-col gap-6">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <p className="text-lg text-gray-800">
+              "Excelente calidad, me encantó el diseño y los colores."
+            </p>
+            <p className="text-sm text-gray-500 mt-2">- Usuario 1</p>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <p className="text-lg text-gray-800">
+              "La talla fue perfecta y llegó rápido."
+            </p>
+            <p className="text-sm text-gray-500 mt-2">- Usuario 2</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Productos relacionados */}
+      <div className="mt-16 w-full max-w-6xl">
+        <h3 className="text-2xl font-bold mb-4">Productos Relacionados</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {relatedProducts.map((relatedProduct) => (
+            <div
+              key={relatedProduct.id}
+              className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer"
+              onClick={() => router.push(`/products/${relatedProduct.id}`)}
+            >
+              <img
+                src={relatedProduct.images[0]}
+                alt={relatedProduct.name}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-4">
+                <h4 className="text-lg font-bold">{relatedProduct.name}</h4>
+                <p className="text-green-600 font-semibold">
+                  S/ {relatedProduct.price.toFixed(2)}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
