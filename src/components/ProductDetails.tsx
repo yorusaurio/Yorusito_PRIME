@@ -166,6 +166,25 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
               Ver Tabla de Medidas
             </button>
           </div>
+
+          {/* Botón de WhatsApp */}
+          <a
+            href={`https://wa.me/51975885868?text=${encodeURIComponent(
+              `Hola, estoy interesado en el producto: ${product.name}. \nColor: ${selectedColor || "No seleccionado"}. \nTalla: ${selectedSize || "No seleccionada"}.`
+            )}`}
+            className={`px-6 py-3 rounded-lg text-lg font-semibold text-center ${
+              selectedColor && selectedSize
+                ? "bg-green-500 text-white hover:bg-green-600"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            } transition`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              pointerEvents: selectedColor && selectedSize ? "auto" : "none",
+            }}
+          >
+            Contactar por WhatsApp
+          </a>
         </div>
       </div>
 
