@@ -1,7 +1,7 @@
 export const mockProducts = [
   {
     id: 1,
-    name: "Cristiano",
+    name: "Cristiano v1",
     price: 35,
     available: true,
     description: "Camiseta de Cristiano Ronaldo, 100% algodón.",
@@ -28,13 +28,12 @@ export const mockProducts = [
 
       🚨 Entrega Gratuita: Disponible para clientes en La Victoria y Lince.
     `,
-    colors: ["Rojo", "Blanco", "Negro"],
+    colors: ["Blanco", "Negro"],
     sizes: ["S", "M", "L"],
     collection: "SuperStars",
     images: [
-      "/images/ronaldo1.jpg",
-      "/images/ronaldo2.jpg",
-      "/images/ronaldo3.jpg",
+      "/images/cristiano1.png",
+      "/images/cristianofront.png",
     ],
   },
   {
