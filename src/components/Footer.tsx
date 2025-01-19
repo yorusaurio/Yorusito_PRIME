@@ -24,7 +24,7 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
             <FontAwesomeIcon icon={faFacebook} size="2x" />
           </a>
           <a
-            href="https://instagram.com/yorusito"
+            href="https://instagram.com/yorusito_pe"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 dark:text-gray-400 hover:text-pink-500 dark:hover:text-pink-400 transition-all"
@@ -33,7 +33,7 @@ const Footer: React.FC<FooterProps> = ({ language }) => {
             <FontAwesomeIcon icon={faInstagram} size="2x" />
           </a>
           <a
-            href="https://tiktok.com/@yorusito"
+            href="https://tiktok.com/@yorusito_pe"
             target="_blank"
             rel="noopener noreferrer"
             className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-all"
