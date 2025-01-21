@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -17,16 +17,34 @@ const Header: React.FC<HeaderProps> = ({
   language,
   theme,
 }) => {
-  const [isProductsHovered, setIsProductsHovered] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const dropdownTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+
+  const handleMouseEnter = (menu: string) => {
+    if (dropdownTimeout.current) {
+      clearTimeout(dropdownTimeout.current);
+    }
+    setActiveDropdown(menu);
+  };
+
+  const handleMouseLeave = () => {
+    dropdownTimeout.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 300); // Mantén el menú visible por 300ms después de que el mouse salga
+  };
+
+  const closeAllDropdowns = () => {
+    if (dropdownTimeout.current) {
+      clearTimeout(dropdownTimeout.current);
+    }
+    setActiveDropdown(null);
   };
 
   return (
     <header className="sticky top-0 z-50 bg-gradient-to-r from-gray-900 via-gray-800 to-black text-white shadow-lg transition-colors">
-      {/* Barra Superior */}
       <div className="flex justify-between items-center px-6 py-4">
         {/* Logo */}
         <div className="text-2xl md:text-4xl font-extrabold tracking-wide cursor-pointer">
@@ -55,28 +73,75 @@ const Header: React.FC<HeaderProps> = ({
           <a href="/about" className="block py-2 px-4 md:py-0 md:px-0 hover:text-gray-400">
             {language === "es" ? "Nosotros" : "About Us"}
           </a>
-          <div className="relative group">
-            <a href="/products" className="block py-2 px-4 md:py-0 md:px-0 hover:text-gray-400">
+
+          {/* Dropdown de Productos */}
+          <div
+            className="relative group"
+            onMouseEnter={() => handleMouseEnter("products")}
+            onMouseLeave={handleMouseLeave}
+          >
+            <a
+              href="/products"
+              className="block py-2 px-4 md:py-0 md:px-0 hover:text-gray-400"
+            >
               {language === "es" ? "Productos" : "Products"}
             </a>
             <div
               className={`${
-                isProductsHovered ? "block" : "hidden"
+                activeDropdown === "products" ? "block" : "hidden"
               } absolute left-0 top-full mt-3 bg-gray-800 text-white py-3 px-4 rounded-lg shadow-xl border border-gray-700`}
             >
-              <a href="/products/polos" className="block py-2 px-4 hover:bg-gray-700 rounded-md">
+              <a
+                href="/products/polos"
+                className="block py-2 px-4 hover:bg-gray-700 rounded-md"
+              >
                 {language === "es" ? "Polos" : "T-Shirts"}
               </a>
-              <a href="/products/hoodies" className="block py-2 px-4 hover:bg-gray-700 rounded-md">
-                {language === "es" ? "Hoodies" : "Hoodies"}
+              <a
+                href="/products/hoodies"
+                className="block py-2 px-4 hover:bg-gray-700 rounded-md"
+              >
+                Hoodies
               </a>
-              <a href="/products/pants" className="block py-2 px-4 hover:bg-gray-700 rounded-md">
+              <a
+                href="/products/pants"
+                className="block py-2 px-4 hover:bg-gray-700 rounded-md"
+              >
                 {language === "es" ? "Pantalones" : "Pants"}
               </a>
             </div>
           </div>
+
+          {/* Subcategorías de Polos */}
+          {activeDropdown === "polos" && (
+            <div
+              className="absolute left-full top-0 mt-3 bg-gray-800 text-white py-3 px-4 rounded-lg shadow-xl border border-gray-700"
+              onMouseEnter={() => handleMouseEnter("polos")}
+              onMouseLeave={handleMouseLeave}
+            >
+              <a
+                href="/products/polos/superstars"
+                className="block py-2 px-4 hover:bg-gray-700 rounded-md"
+              >
+                SuperStars
+              </a>
+              <a
+                href="/products/polos/romantic"
+                className="block py-2 px-4 hover:bg-gray-700 rounded-md"
+              >
+                Romantic
+              </a>
+              <a
+                href="/products/polos/gym"
+                className="block py-2 px-4 hover:bg-gray-700 rounded-md"
+              >
+                Gym
+              </a>
+            </div>
+          )}
+
           <a href="/faq" className="block py-2 px-4 md:py-0 md:px-0 hover:text-gray-400">
-            {language === "es" ? "FAQ" : "FAQ"}
+            FAQ
           </a>
           <a href="/contact" className="block py-2 px-4 md:py-0 md:px-0 hover:text-gray-400">
             {language === "es" ? "Contacto" : "Contact"}
@@ -85,7 +150,6 @@ const Header: React.FC<HeaderProps> = ({
 
         {/* Controles */}
         <div className="hidden md:flex items-center gap-4">
-          {/* Botón de Tema */}
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300 shadow-md"
@@ -93,8 +157,6 @@ const Header: React.FC<HeaderProps> = ({
           >
             <FontAwesomeIcon icon={theme === "dark" ? faSun : faMoon} size="lg" />
           </button>
-
-          {/* Selector de Idioma */}
           <select
             onChange={(e) => changeLanguage(e.target.value as "es" | "en")}
             value={language}

@@ -21,7 +21,7 @@ const ProductsPage: React.FC = () => {
         <Link href="/products/polos">
           <div className="relative group cursor-pointer overflow-hidden rounded-lg shadow-md bg-white">
             <img
-              src="/images/categoria-polos.jpg"
+              src="/images/polo.avif"
               alt="Polos"
               className="w-full h-72 object-cover transition-transform duration-300 group-hover:scale-110"
             />
@@ -35,7 +35,7 @@ const ProductsPage: React.FC = () => {
         <Link href="/products/hoodies">
           <div className="relative group cursor-pointer overflow-hidden rounded-lg shadow-md bg-white">
             <img
-              src="/images/categoria-poleras.jpg"
+              src="/images/hoodie.png"
               alt="Poleras"
               className="w-full h-72 object-cover transition-transform duration-300 group-hover:scale-110"
             />

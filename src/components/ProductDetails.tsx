@@ -11,7 +11,7 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [currentImage, setCurrentImage] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [zoomLevel, setZoomLevel] = useState<number>(1);
+  const [modalImage, setModalImage] = useState<string | null>(null);
 
   useEffect(() => {
     const productId = Number(params.id);
@@ -26,20 +26,20 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
     }
   }, [params]);
 
-  const handleZoomIn = () => {
-    setZoomLevel((prev) => Math.min(prev + 0.2, 3)); // Limitar el zoom máximo a 3x
-  };
-
-  const handleZoomOut = () => {
-    setZoomLevel((prev) => Math.max(prev - 0.2, 1)); // Limitar el zoom mínimo a 1x
-  };
-
-  const handleOpenModal = () => {
+  const handleOpenModal = (image: string) => {
+    setModalImage(image);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    setModalImage(null);
+  };
+
+  const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === event.currentTarget) {
+      handleCloseModal();
+    }
   };
 
   const colorMap: { [key: string]: string } = {
@@ -79,7 +79,6 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8 flex flex-col items-center">
-      {/* Botón Volver */}
       <button
         className="mb-6 px-6 py-3 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition"
         onClick={() => router.back()}
@@ -87,19 +86,18 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
         Volver
       </button>
 
-      {/* Contenedor principal */}
       <div className="bg-white shadow-2xl rounded-lg p-8 max-w-6xl w-full flex flex-col md:flex-row gap-12">
         {/* Galería de imágenes */}
         <div className="flex-1 flex flex-col gap-4 items-center relative">
           <div
-            className="relative overflow-hidden border-2 shadow-md rounded-lg"
-            style={{ width: "100%", height: "400px", display: "flex", justifyContent: "center", alignItems: "center" }}
+            className="relative overflow-hidden border-2 shadow-md rounded-lg cursor-pointer"
+            style={{ width: "100%", height: "400px" }}
+            onClick={() => handleOpenModal(currentImage || product.images[0])}
           >
             <img
               src={currentImage || product.images[0]}
               alt={product.name}
-              className="object-contain rounded-lg"
-              style={{ transform: `scale(${zoomLevel})`, transition: "transform 0.3s ease", maxHeight: "100%", maxWidth: "100%" }}
+              className="object-contain rounded-lg w-full h-full"
             />
           </div>
           {/* Previsualización de imágenes */}
@@ -115,21 +113,6 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
                 onClick={() => setCurrentImage(img)}
               />
             ))}
-          </div>
-          {/* Botones de Zoom */}
-          <div className="absolute bottom-4 right-4 flex gap-2">
-            <button
-              className="px-3 py-1 bg-gray-800 text-white rounded-lg shadow-lg hover:bg-gray-700 transition"
-              onClick={handleZoomIn}
-            >
-              +
-            </button>
-            <button
-              className="px-3 py-1 bg-gray-800 text-white rounded-lg shadow-lg hover:bg-gray-700 transition"
-              onClick={handleZoomOut}
-            >
-              -
-            </button>
           </div>
         </div>
 
@@ -189,13 +172,6 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
                 </button>
               ))}
             </div>
-            {/* Botón para abrir la tabla de medidas */}
-            <button
-              className="mt-4 px-6 py-3 bg-gray-800 text-white rounded-lg shadow-lg hover:bg-gray-700 transition"
-              onClick={handleOpenModal}
-            >
-              Ver Tabla de Medidas
-            </button>
           </div>
 
           {/* Botón de WhatsApp */}
@@ -219,54 +195,38 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
         </div>
       </div>
 
-      {/* Ventana Modal de la Tabla de Medidas */}
-      {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/2">
-            <h3 className="text-2xl font-bold mb-4">Tabla de Medidas</h3>
-            <img
-              src="/images/tabla-medidas.jpg"
-              alt="Tabla de Medidas"
-              className="w-full object-contain"
-            />
+      {/* Modal de imagen */}
+      {isModalOpen && modalImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75"
+          onClick={handleBackdropClick}
+        >
+          <div className="relative w-11/12 max-w-4xl">
             <button
-              className="mt-6 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+              className="absolute top-4 right-4 text-white text-2xl font-bold bg-red-600 rounded-full w-10 h-10 flex items-center justify-center hover:bg-red-700"
               onClick={handleCloseModal}
             >
-              Cerrar
+              &times;
             </button>
+            <img
+              src={modalImage}
+              alt="Zoomed Product"
+              className="w-full h-auto object-contain rounded-lg"
+            />
           </div>
         </div>
       )}
 
-      {/* Descripción del Producto */}
-      <div className="mt-16 w-full max-w-4xl">
-        <h3 className="text-2xl font-bold mb-4">Descripción del Producto</h3>
-        <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-          <pre className="whitespace-pre-wrap text-gray-800 text-lg">
-            {product.detailedDescription}
-          </pre>
-        </div>
-      </div>
+      {/* Descripción del producto */}
+<div className="mt-16 w-full max-w-4xl">
+  <h3 className="text-2xl font-bold mb-4">Descripción del Producto</h3>
+  <div className="bg-gray-100 p-6 rounded-lg shadow-md">
+    <pre className="whitespace-pre-wrap text-gray-800 text-lg">
+      {product.detailedDescription}
+    </pre>
+  </div>
+</div>
 
-      {/* Reseñas */}
-      <div className="mt-16 w-full max-w-4xl">
-        <h3 className="text-2xl font-bold mb-4">Reseñas de Clientes</h3>
-        <div className="flex flex-col gap-6">
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <p className="text-lg text-gray-800">
-              "Excelente calidad, me encantó el diseño y los colores."
-            </p>
-            <p className="text-sm text-gray-500 mt-2">- Valeria Bravo</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-lg">
-            <p className="text-lg text-gray-800">
-              "La talla fue perfecta y llegó rápido."
-            </p>
-            <p className="text-sm text-gray-500 mt-2">- Favio Cueva</p>
-          </div>
-        </div>
-      </div>
 
       {/* Productos relacionados */}
       <div className="mt-16 w-full max-w-6xl">
