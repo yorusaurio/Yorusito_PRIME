@@ -1,46 +1,132 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { mockProducts } from "@/data/mockProducts";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 export default function ProductDetails({ params }: { params: { id: string } }) {
   const router = useRouter();
-  const [product, setProduct] = useState<any | null>(null);
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const [currentImage, setCurrentImage] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [modalImage, setModalImage] = useState<string | null>(null);
+const [product, setProduct] = useState<any | null>(null);
+const [selectedColor, setSelectedColor] = useState<string | null>(null);
+const [selectedSize, setSelectedSize] = useState<string | null>(null);
+const [currentImage, setCurrentImage] = useState<string | null>(null);
+const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+const [modalImage, setModalImage] = useState<string | null>(null);
 
-  useEffect(() => {
-    const productId = Number(params.id);
-    const foundProduct = mockProducts.find((p) => p.id === productId);
+const [currentIndex, setCurrentIndex] = useState(0);
+const [isDragging, setIsDragging] = useState(false);
+const [clickTimeout, setClickTimeout] = useState<NodeJS.Timeout | null>(null);
+const [startPosition, setStartPosition] = useState(0);
+const [currentTranslate, setCurrentTranslate] = useState(0);
+const [prevTranslate, setPrevTranslate] = useState(0);
+const carouselRef = useRef<HTMLDivElement>(null);
 
-    setProduct(foundProduct);
+const filteredProducts = product
+  ? mockProducts.filter(
+      (relatedProduct) =>
+        relatedProduct.collection === product.collection &&
+        relatedProduct.id !== product.id
+    )
+  : [];
 
-    if (foundProduct) {
-      setSelectedColor(foundProduct.colors?.[0] || null);
-      setSelectedSize(foundProduct.sizes?.[0] || null);
-      setCurrentImage(foundProduct.images?.[0] || null);
-    }
-  }, [params]);
+const handlePrev = () => {
+  setCurrentIndex((prevIndex) =>
+    prevIndex === 0 ? Math.max(0, Math.ceil(filteredProducts.length / 5) - 1) : prevIndex - 1
+  );
+};
 
-  const handleOpenModal = (image: string) => {
-    setModalImage(image);
-    setIsModalOpen(true);
-  };
+const handleNext = () => {
+  setCurrentIndex((prevIndex) =>
+    prevIndex === Math.max(0, Math.ceil(filteredProducts.length / 5) - 1) ? 0 : prevIndex + 1
+  );
+};
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setModalImage(null);
-  };
+// Iniciar el arrastre
+const startDrag = (e: React.MouseEvent | React.TouchEvent) => {
+  if (clickTimeout) clearTimeout(clickTimeout);
+  
+  setIsDragging(false);
+  const timeout = setTimeout(() => setIsDragging(true), 3000);
+  setClickTimeout(timeout);
 
-  const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (event.target === event.currentTarget) {
-      handleCloseModal();
-    }
-  };
+  carouselRef.current!.style.cursor = "grabbing";
+  const startPos =
+    e.type === "touchstart"
+      ? (e as React.TouchEvent).touches[0].clientX
+      : (e as React.MouseEvent).clientX;
+  
+  setStartPosition(startPos);
+  setPrevTranslate(currentTranslate);
+};
+
+// Arrastrando el carrusel
+const dragging = (e: React.MouseEvent | React.TouchEvent) => {
+  if (!clickTimeout) return;
+  clearTimeout(clickTimeout);
+  
+  setIsDragging(false);
+  
+  const currentPos =
+    e.type === "touchmove"
+      ? (e as React.TouchEvent).touches[0].clientX
+      : (e as React.MouseEvent).clientX;
+  const diff = currentPos - startPosition;
+
+  const maxTranslate = Math.max(0, (filteredProducts.length - 5) * 20);
+  const translate = Math.min(
+    Math.max(prevTranslate - (diff / carouselRef.current!.clientWidth) * 100, 0),
+    maxTranslate
+  );
+
+  setCurrentTranslate(translate);
+};
+
+// Soltar el carrusel
+const endDrag = (e: React.MouseEvent | React.TouchEvent) => {
+  if (!clickTimeout) return;
+  clearTimeout(clickTimeout);
+  
+  setIsDragging(false);
+  carouselRef.current!.style.cursor = "grab";
+
+  const nearestIndex = Math.round(currentTranslate / 20);
+  setCurrentIndex(nearestIndex);
+  setCurrentTranslate(nearestIndex * 20);
+};
+
+useEffect(() => {
+  const productId = Number(params.id);
+  const foundProduct = mockProducts.find((p) => p.id === productId);
+
+  setProduct(foundProduct);
+
+  if (foundProduct) {
+    setSelectedColor(foundProduct.colors?.[0] || null);
+    setSelectedSize(foundProduct.sizes?.[0] || null);
+    setCurrentImage(foundProduct.images?.[0] || null);
+  }
+}, [params]);
+
+const handleOpenModal = (image: string) => {
+  setModalImage(image);
+  setIsModalOpen(true);
+};
+
+const handleCloseModal = () => {
+  setIsModalOpen(false);
+  setModalImage(null);
+};
+
+const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  if (event.target === event.currentTarget) {
+    handleCloseModal();
+  }
+};
 
   const colorMap: { [key: string]: string } = {
     rojo: "red",
@@ -60,8 +146,6 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
     violeta: "violet",
     aqua: "aqua",
   };
-
-  const relatedProducts = mockProducts.slice(0, 3);
 
   if (!product) {
     return (
@@ -218,41 +302,69 @@ export default function ProductDetails({ params }: { params: { id: string } }) {
       )}
 
       {/* Descripción del producto */}
-<div className="mt-16 w-full max-w-4xl">
-  <h3 className="text-2xl font-bold mb-4">Descripción del Producto</h3>
-  <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-    <pre className="whitespace-pre-wrap text-gray-800 text-lg">
-      {product.detailedDescription}
-    </pre>
-  </div>
-</div>
+      <div className="mt-16 w-full max-w-4xl">
+        <h3 className="text-2xl font-bold mb-4">Descripción del Producto</h3>
+        <div className="bg-gray-100 p-6 rounded-lg shadow-md">
+          <pre className="whitespace-pre-wrap text-gray-800 text-lg">
+            {product.detailedDescription}
+          </pre>
+        </div>
+      </div>
 
+      {/* Productos relacionados con carrusel */}
+      <div className="mt-16 w-full max-w-6xl mx-auto">
+      <h3 className="text-2xl font-bold mb-4">Productos Relacionados</h3>
 
-      {/* Productos relacionados */}
-      <div className="mt-16 w-full max-w-6xl">
-        <h3 className="text-2xl font-bold mb-4">Productos Relacionados</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {relatedProducts.map((relatedProduct) => (
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        spaceBetween={16} // Espaciado entre productos
+        slidesPerView={1} // Para móviles
+        breakpoints={{
+          640: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
+          1280: { slidesPerView: 5 },
+        }}
+        navigation // Botones de navegación
+        pagination={{ clickable: true }} // Paginación inferior
+        autoplay={{ delay: 3000, disableOnInteraction: false }} // Auto-slide
+        loop // Ciclo infinito
+        className="relative w-full"
+      >
+        {filteredProducts.map((product) => (
+          <SwiperSlide key={product.id}>
             <div
-              key={relatedProduct.id}
-              className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer"
-              onClick={() => router.push(`/products/${relatedProduct.id}`)}
+              className="bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer transition-transform hover:scale-105"
+              onClick={() => router.push(`/products/${product.id}`)}
             >
               <img
-                src={relatedProduct.images[0]}
-                alt={relatedProduct.name}
-                className="w-full h-48 object-cover"
+                src={product.images[0]}
+                alt={product.name}
+                className="w-full h-48 object-cover rounded-t-lg"
               />
               <div className="p-4">
-                <h4 className="text-lg font-bold">{relatedProduct.name}</h4>
-                <p className="text-green-600 font-semibold">
-                  S/ {relatedProduct.price.toFixed(2)}
+                <h4 className="text-sm font-bold">{product.name}</h4>
+                <p className="text-green-600 font-semibold text-sm">
+                  S/ {product.price.toFixed(2)}
                 </p>
               </div>
             </div>
-          ))}
-        </div>
-      </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+  
+
+
+
+
+
+</div>
+
+
+
+
+
+
     </div>
   );
 }

@@ -929,6 +929,154 @@ export const mockProducts = [
     ],
   },
   {
+    id: 26,
+    name: "Messi v2",
+    price: 35,
+    available: true,
+    description: "Camiseta de Lionel Messi, 100% algodón.",
+    detailedDescription: `
+      ✨ Tela: Camiseta confeccionada con algodón jersey 24/1 de alta calidad, reconocida por su suavidad y resistencia. Este material es ligero, duradero y garantiza frescura, ideal para el uso diario. Su gramaje asegura una prenda que mantiene su forma y comodidad incluso tras múltiples lavados.
+
+      ✨ Tallas Disponibles: Ofrecemos tallas S, M y L, con opción a XL por un costo adicional de 3 soles. Nuestras camisetas están diseñadas para adaptarse cómodamente a diferentes tipos de cuerpo.
+
+      ✨ Colores Disponibles: Blanco, Melange y Negro. Estos colores clásicos y versátiles han sido tratados con tecnología de teñido reactivo para asegurar que no se destiñan ni encogen, conservando su apariencia impecable por más tiempo.
+
+      **Características Principales**
+
+      ✨ Teñido Reactivo: Este proceso asegura que los colores de la camiseta no se destiñan ni se deterioren tras múltiples lavados, manteniendo su calidad original.
+
+      ✨ Estampado DTF (Direct to Film): Diseños impresos con alta definición y durabilidad, que no se agrietan ni despegan, incluso con el uso frecuente. La tecnología DTF garantiza un acabado profesional que combina estilo y resistencia.
+
+      ✨ Diseño Premium: Cada camiseta cuenta con acabados impecables y costuras reforzadas, diseñadas pensando en la comodidad y durabilidad. Es una prenda ideal tanto para el día a día como para ocasiones especiales.
+
+      **Opciones de Envío**
+
+      📦 Envíos Nacionales: Realizamos envíos seguros a nivel nacional a través de Shalom.
+
+      🏍 Delivery Local: Servicio de entrega dentro de Lima con un costo adicional de 10 soles (dependiendo del distrito).
+
+      🚨 Entrega Gratuita: Disponible para clientes en La Victoria y Lince.
+    `,
+    colors: ["Blanco", "Negro"],
+    sizes: ["S", "M", "L"],
+    collection: "SuperStars",
+    images: [
+      "/images/superstars/messi2.png",
+      "/images/superstars/messifront.png",
+    ],
+  },
+  {
+    id: 27,
+    name: "Messi v3",
+    price: 35,
+    available: true,
+    description: "Camiseta de Lionel Messi, 100% algodón.",
+    detailedDescription: `
+      ✨ Tela: Camiseta confeccionada con algodón jersey 24/1 de alta calidad, reconocida por su suavidad y resistencia. Este material es ligero, duradero y garantiza frescura, ideal para el uso diario. Su gramaje asegura una prenda que mantiene su forma y comodidad incluso tras múltiples lavados.
+
+      ✨ Tallas Disponibles: Ofrecemos tallas S, M y L, con opción a XL por un costo adicional de 3 soles. Nuestras camisetas están diseñadas para adaptarse cómodamente a diferentes tipos de cuerpo.
+
+      ✨ Colores Disponibles: Blanco, Melange y Negro. Estos colores clásicos y versátiles han sido tratados con tecnología de teñido reactivo para asegurar que no se destiñan ni encogen, conservando su apariencia impecable por más tiempo.
+
+      **Características Principales**
+
+      ✨ Teñido Reactivo: Este proceso asegura que los colores de la camiseta no se destiñan ni se deterioren tras múltiples lavados, manteniendo su calidad original.
+
+      ✨ Estampado DTF (Direct to Film): Diseños impresos con alta definición y durabilidad, que no se agrietan ni despegan, incluso con el uso frecuente. La tecnología DTF garantiza un acabado profesional que combina estilo y resistencia.
+
+      ✨ Diseño Premium: Cada camiseta cuenta con acabados impecables y costuras reforzadas, diseñadas pensando en la comodidad y durabilidad. Es una prenda ideal tanto para el día a día como para ocasiones especiales.
+
+      **Opciones de Envío**
+
+      📦 Envíos Nacionales: Realizamos envíos seguros a nivel nacional a través de Shalom.
+
+      🏍 Delivery Local: Servicio de entrega dentro de Lima con un costo adicional de 10 soles (dependiendo del distrito).
+
+      🚨 Entrega Gratuita: Disponible para clientes en La Victoria y Lince.
+    `,
+    colors: ["Blanco", "Negro"],
+    sizes: ["S", "M", "L"],
+    collection: "SuperStars",
+    images: [
+      "/images/superstars/messi3.png",
+      "/images/superstars/messifront.png",
+    ],
+  },
+  {
+    id: 28,
+    name: "Messi v4",
+    price: 35,
+    available: true,
+    description: "Camiseta de Lionel Messi, 100% algodón.",
+    detailedDescription: `
+      ✨ Tela: Camiseta confeccionada con algodón jersey 24/1 de alta calidad, reconocida por su suavidad y resistencia. Este material es ligero, duradero y garantiza frescura, ideal para el uso diario. Su gramaje asegura una prenda que mantiene su forma y comodidad incluso tras múltiples lavados.
+
+      ✨ Tallas Disponibles: Ofrecemos tallas S, M y L, con opción a XL por un costo adicional de 3 soles. Nuestras camisetas están diseñadas para adaptarse cómodamente a diferentes tipos de cuerpo.
+
+      ✨ Colores Disponibles: Blanco, Melange y Negro. Estos colores clásicos y versátiles han sido tratados con tecnología de teñido reactivo para asegurar que no se destiñan ni encogen, conservando su apariencia impecable por más tiempo.
+
+      **Características Principales**
+
+      ✨ Teñido Reactivo: Este proceso asegura que los colores de la camiseta no se destiñan ni se deterioren tras múltiples lavados, manteniendo su calidad original.
+
+      ✨ Estampado DTF (Direct to Film): Diseños impresos con alta definición y durabilidad, que no se agrietan ni despegan, incluso con el uso frecuente. La tecnología DTF garantiza un acabado profesional que combina estilo y resistencia.
+
+      ✨ Diseño Premium: Cada camiseta cuenta con acabados impecables y costuras reforzadas, diseñadas pensando en la comodidad y durabilidad. Es una prenda ideal tanto para el día a día como para ocasiones especiales.
+
+      **Opciones de Envío**
+
+      📦 Envíos Nacionales: Realizamos envíos seguros a nivel nacional a través de Shalom.
+
+      🏍 Delivery Local: Servicio de entrega dentro de Lima con un costo adicional de 10 soles (dependiendo del distrito).
+
+      🚨 Entrega Gratuita: Disponible para clientes en La Victoria y Lince.
+    `,
+    colors: ["Blanco", "Negro"],
+    sizes: ["S", "M", "L"],
+    collection: "SuperStars",
+    images: [
+      "/images/superstars/messi4.png",
+      "/images/superstars/messifront.png",
+    ],
+  },
+  {
+    id: 29,
+    name: "Messi v5",
+    price: 35,
+    available: true,
+    description: "Camiseta de Lionel Messi, 100% algodón.",
+    detailedDescription: `
+      ✨ Tela: Camiseta confeccionada con algodón jersey 24/1 de alta calidad, reconocida por su suavidad y resistencia. Este material es ligero, duradero y garantiza frescura, ideal para el uso diario. Su gramaje asegura una prenda que mantiene su forma y comodidad incluso tras múltiples lavados.
+
+      ✨ Tallas Disponibles: Ofrecemos tallas S, M y L, con opción a XL por un costo adicional de 3 soles. Nuestras camisetas están diseñadas para adaptarse cómodamente a diferentes tipos de cuerpo.
+
+      ✨ Colores Disponibles: Blanco, Melange y Negro. Estos colores clásicos y versátiles han sido tratados con tecnología de teñido reactivo para asegurar que no se destiñan ni encogen, conservando su apariencia impecable por más tiempo.
+
+      **Características Principales**
+
+      ✨ Teñido Reactivo: Este proceso asegura que los colores de la camiseta no se destiñan ni se deterioren tras múltiples lavados, manteniendo su calidad original.
+
+      ✨ Estampado DTF (Direct to Film): Diseños impresos con alta definición y durabilidad, que no se agrietan ni despegan, incluso con el uso frecuente. La tecnología DTF garantiza un acabado profesional que combina estilo y resistencia.
+
+      ✨ Diseño Premium: Cada camiseta cuenta con acabados impecables y costuras reforzadas, diseñadas pensando en la comodidad y durabilidad. Es una prenda ideal tanto para el día a día como para ocasiones especiales.
+
+      **Opciones de Envío**
+
+      📦 Envíos Nacionales: Realizamos envíos seguros a nivel nacional a través de Shalom.
+
+      🏍 Delivery Local: Servicio de entrega dentro de Lima con un costo adicional de 10 soles (dependiendo del distrito).
+
+      🚨 Entrega Gratuita: Disponible para clientes en La Victoria y Lince.
+    `,
+    colors: ["Blanco", "Negro"],
+    sizes: ["S", "M", "L"],
+    collection: "SuperStars",
+    images: [
+      "/images/superstars/messi5.png",
+      "/images/superstars/messifront.png",
+    ],
+  },
+  {
     id: 30,
     name: "EMPECÉ DESDE ABAJO Y AHÍ ME QUEDÉ",
     price: 35,
@@ -1322,6 +1470,153 @@ export const mockProducts = [
     collection: "GYM",
     images: [
       "/images/gym/gym22.png",
+    ],
+  },
+  {
+    id: 41,
+    name: "Messi v6",
+    price: 35,
+    available: true,
+    description: "Camiseta de Lionel Messi, 100% algodón.",
+    detailedDescription: `
+      ✨ Tela: Camiseta confeccionada con algodón jersey 24/1 de alta calidad, reconocida por su suavidad y resistencia. Este material es ligero, duradero y garantiza frescura, ideal para el uso diario. Su gramaje asegura una prenda que mantiene su forma y comodidad incluso tras múltiples lavados.
+
+      ✨ Tallas Disponibles: Ofrecemos tallas S, M y L, con opción a XL por un costo adicional de 3 soles. Nuestras camisetas están diseñadas para adaptarse cómodamente a diferentes tipos de cuerpo.
+
+      ✨ Colores Disponibles: Blanco, Melange y Negro. Estos colores clásicos y versátiles han sido tratados con tecnología de teñido reactivo para asegurar que no se destiñan ni encogen, conservando su apariencia impecable por más tiempo.
+
+      **Características Principales**
+
+      ✨ Teñido Reactivo: Este proceso asegura que los colores de la camiseta no se destiñan ni se deterioren tras múltiples lavados, manteniendo su calidad original.
+
+      ✨ Estampado DTF (Direct to Film): Diseños impresos con alta definición y durabilidad, que no se agrietan ni despegan, incluso con el uso frecuente. La tecnología DTF garantiza un acabado profesional que combina estilo y resistencia.
+
+      ✨ Diseño Premium: Cada camiseta cuenta con acabados impecables y costuras reforzadas, diseñadas pensando en la comodidad y durabilidad. Es una prenda ideal tanto para el día a día como para ocasiones especiales.
+
+      **Opciones de Envío**
+
+      📦 Envíos Nacionales: Realizamos envíos seguros a nivel nacional a través de Shalom.
+
+      🏍 Delivery Local: Servicio de entrega dentro de Lima con un costo adicional de 10 soles (dependiendo del distrito).
+
+      🚨 Entrega Gratuita: Disponible para clientes en La Victoria y Lince.
+    `,
+    colors: ["Blanco", "Negro"],
+    sizes: ["S", "M", "L"],
+    collection: "SuperStars",
+    images: [
+      "/images/superstars/messi6.png",
+      "/images/superstars/messifront.png",
+    ],
+  },
+  {
+    id: 42,
+    name: "Messi v7",
+    price: 35,
+    available: true,
+    description: "Camiseta de Lionel Messi, 100% algodón.",
+    detailedDescription: `
+      ✨ Tela: Camiseta confeccionada con algodón jersey 24/1 de alta calidad, reconocida por su suavidad y resistencia. Este material es ligero, duradero y garantiza frescura, ideal para el uso diario. Su gramaje asegura una prenda que mantiene su forma y comodidad incluso tras múltiples lavados.
+
+      ✨ Tallas Disponibles: Ofrecemos tallas S, M y L, con opción a XL por un costo adicional de 3 soles. Nuestras camisetas están diseñadas para adaptarse cómodamente a diferentes tipos de cuerpo.
+
+      ✨ Colores Disponibles: Blanco, Melange y Negro. Estos colores clásicos y versátiles han sido tratados con tecnología de teñido reactivo para asegurar que no se destiñan ni encogen, conservando su apariencia impecable por más tiempo.
+
+      **Características Principales**
+
+      ✨ Teñido Reactivo: Este proceso asegura que los colores de la camiseta no se destiñan ni se deterioren tras múltiples lavados, manteniendo su calidad original.
+
+      ✨ Estampado DTF (Direct to Film): Diseños impresos con alta definición y durabilidad, que no se agrietan ni despegan, incluso con el uso frecuente. La tecnología DTF garantiza un acabado profesional que combina estilo y resistencia.
+
+      ✨ Diseño Premium: Cada camiseta cuenta con acabados impecables y costuras reforzadas, diseñadas pensando en la comodidad y durabilidad. Es una prenda ideal tanto para el día a día como para ocasiones especiales.
+
+      **Opciones de Envío**
+
+      📦 Envíos Nacionales: Realizamos envíos seguros a nivel nacional a través de Shalom.
+
+      🏍 Delivery Local: Servicio de entrega dentro de Lima con un costo adicional de 10 soles (dependiendo del distrito).
+
+      🚨 Entrega Gratuita: Disponible para clientes en La Victoria y Lince.
+    `,
+    colors: ["Blanco", "Negro"],
+    sizes: ["S", "M", "L"],
+    collection: "SuperStars",
+    images: [
+      "/images/superstars/messi7.png",
+    ],
+  },
+  {
+    id: 43,
+    name: "Cristiano v5",
+    price: 35,
+    available: true,
+    description: "Camiseta de Cristiano Ronaldo, 100% algodón.",
+    detailedDescription: `
+      ✨ Tela: Camiseta confeccionada con algodón jersey 24/1 de alta calidad, reconocida por su suavidad y resistencia. Este material es ligero, duradero y garantiza frescura, ideal para el uso diario. Su gramaje asegura una prenda que mantiene su forma y comodidad incluso tras múltiples lavados.
+
+      ✨ Tallas Disponibles: Ofrecemos tallas S, M y L, con opción a XL por un costo adicional de 3 soles. Nuestras camisetas están diseñadas para adaptarse cómodamente a diferentes tipos de cuerpo.
+
+      ✨ Colores Disponibles: Blanco, Melange y Negro. Estos colores clásicos y versátiles han sido tratados con tecnología de teñido reactivo para asegurar que no se destiñan ni encogen, conservando su apariencia impecable por más tiempo.
+
+      **Características Principales**
+
+      ✨ Teñido Reactivo: Este proceso asegura que los colores de la camiseta no se destiñan ni se deterioren tras múltiples lavados, manteniendo su calidad original.
+
+      ✨ Estampado DTF (Direct to Film): Diseños impresos con alta definición y durabilidad, que no se agrietan ni despegan, incluso con el uso frecuente. La tecnología DTF garantiza un acabado profesional que combina estilo y resistencia.
+
+      ✨ Diseño Premium: Cada camiseta cuenta con acabados impecables y costuras reforzadas, diseñadas pensando en la comodidad y durabilidad. Es una prenda ideal tanto para el día a día como para ocasiones especiales.
+
+      **Opciones de Envío**
+
+      📦 Envíos Nacionales: Realizamos envíos seguros a nivel nacional a través de Shalom.
+
+      🏍 Delivery Local: Servicio de entrega dentro de Lima con un costo adicional de 10 soles (dependiendo del distrito).
+
+      🚨 Entrega Gratuita: Disponible para clientes en La Victoria y Lince.
+    `,
+    colors: ["Blanco", "Negro"],
+    sizes: ["S", "M", "L"],
+    collection: "SuperStars",
+    images: [
+      "/images/superstars/cristiano5.png",
+      "/images/superstars/cristianofront.png",
+    ],
+  },
+  {
+    id: 44,
+    name: "Cristiano v6",
+    price: 35,
+    available: true,
+    description: "Camiseta de Cristiano Ronaldo, 100% algodón.",
+    detailedDescription: `
+      ✨ Tela: Camiseta confeccionada con algodón jersey 24/1 de alta calidad, reconocida por su suavidad y resistencia. Este material es ligero, duradero y garantiza frescura, ideal para el uso diario. Su gramaje asegura una prenda que mantiene su forma y comodidad incluso tras múltiples lavados.
+
+      ✨ Tallas Disponibles: Ofrecemos tallas S, M y L, con opción a XL por un costo adicional de 3 soles. Nuestras camisetas están diseñadas para adaptarse cómodamente a diferentes tipos de cuerpo.
+
+      ✨ Colores Disponibles: Blanco, Melange y Negro. Estos colores clásicos y versátiles han sido tratados con tecnología de teñido reactivo para asegurar que no se destiñan ni encogen, conservando su apariencia impecable por más tiempo.
+
+      **Características Principales**
+
+      ✨ Teñido Reactivo: Este proceso asegura que los colores de la camiseta no se destiñan ni se deterioren tras múltiples lavados, manteniendo su calidad original.
+
+      ✨ Estampado DTF (Direct to Film): Diseños impresos con alta definición y durabilidad, que no se agrietan ni despegan, incluso con el uso frecuente. La tecnología DTF garantiza un acabado profesional que combina estilo y resistencia.
+
+      ✨ Diseño Premium: Cada camiseta cuenta con acabados impecables y costuras reforzadas, diseñadas pensando en la comodidad y durabilidad. Es una prenda ideal tanto para el día a día como para ocasiones especiales.
+
+      **Opciones de Envío**
+
+      📦 Envíos Nacionales: Realizamos envíos seguros a nivel nacional a través de Shalom.
+
+      🏍 Delivery Local: Servicio de entrega dentro de Lima con un costo adicional de 10 soles (dependiendo del distrito).
+
+      🚨 Entrega Gratuita: Disponible para clientes en La Victoria y Lince.
+    `,
+    colors: ["Blanco", "Negro"],
+    sizes: ["S", "M", "L"],
+    collection: "SuperStars",
+    images: [
+      "/images/superstars/cristiano6.png",
+      "/images/superstars/cristianofront.png",
     ],
   },
 
