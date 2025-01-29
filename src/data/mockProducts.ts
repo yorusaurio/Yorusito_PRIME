@@ -962,7 +962,6 @@ export const mockProducts = [
     collection: "SuperStars",
     images: [
       "/images/superstars/messi2.png",
-      "/images/superstars/messifront.png",
     ],
   },
   {
