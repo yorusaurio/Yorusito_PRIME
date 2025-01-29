@@ -7,11 +7,7 @@ const App: React.FC = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [language, setLanguage] = useState<"es" | "en">("es");
 
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
-  };
+
 
   const changeLanguage = (lang: "es" | "en") => {
     setLanguage(lang);
@@ -25,7 +21,7 @@ const App: React.FC = () => {
           : "bg-white text-gray-900"
       }`}
     >
-      <Hero language={language} theme={theme} />
+      <Hero language={language}/>
     </div>
   );
 };
