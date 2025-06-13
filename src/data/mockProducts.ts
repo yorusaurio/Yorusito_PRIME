@@ -531,44 +531,6 @@ export const mockProducts = [
     ],
   },
   {
-    id: 15,
-    name: "Girlfriend v6",
-    price: 35,
-    available: true,
-    description: "Camiseta Girlfriend, diseño único y la mejor de todas.",
-    detailedDescription: `
-      ✨ Tela: Camiseta confeccionada con algodón jersey 24/1 de alta calidad, reconocida por su suavidad y resistencia. Este material es ligero, duradero y garantiza frescura, ideal para el uso diario. Su gramaje asegura una prenda que mantiene su forma y comodidad incluso tras múltiples lavados.
-
-      ✨ Tallas Disponibles: Ofrecemos tallas S, M y L, con opción a XL por un costo adicional de 3 soles. Nuestras camisetas están diseñadas para adaptarse cómodamente a diferentes tipos de cuerpo.
-
-      ✨ Colores Disponibles: Blanco, Melange y Negro. Estos colores clásicos y versátiles han sido tratados con tecnología de teñido reactivo para asegurar que no se destiñan ni encogen, conservando su apariencia impecable por más tiempo.
-
-      **Características Principales**
-
-      ✨ Teñido Reactivo: Este proceso asegura que los colores de la camiseta no se destiñan ni se deterioren tras múltiples lavados, manteniendo su calidad original.
-
-      ✨ Estampado DTF (Direct to Film): Diseños impresos con alta definición y durabilidad, que no se agrietan ni despegan, incluso con el uso frecuente. La tecnología DTF garantiza un acabado profesional que combina estilo y resistencia.
-
-      ✨ Diseño Premium: Cada camiseta cuenta con acabados impecables y costuras reforzadas, diseñadas pensando en la comodidad y durabilidad. Es una prenda ideal tanto para el día a día como para ocasiones especiales.
-
-      **Opciones de Envío**
-
-      📦 Envíos Nacionales: Realizamos envíos seguros a nivel nacional a través de Shalom.
-
-      🏍 Delivery Local: Servicio de entrega dentro de Lima con un costo adicional de 10 soles (dependiendo del distrito).
-
-      🚨 Entrega Gratuita: Disponible para clientes en La Victoria y Lince.
-    `,
-    colors: ["Blanco", "Negro"],
-    sizes: ["S", "M", "L"],
-    collection: "Romantic",
-    images: [
-      "/images/girlfriend/girlfriend6.png",
-      "/images/girlfriend/girlfriend6-6.png",
-      "/images/girlfriend/girlfriendfrontM.png",
-    ],
-  },
-  {
     id: 16,
     name: "LEVANTO FIERROS PORQUE CULOS NI UNO",
     price: 35,
