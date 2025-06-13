@@ -25,13 +25,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-gray-900 text-gray-900 dark:text-white`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-yorusito-light text-yorusito-neutral`}
       >
         <ClientWrapper>
           {children}
-          <WhatsAppButton /> {/* Agrega el botón aquí */}
+          <WhatsAppButton />
         </ClientWrapper>
       </body>
     </html>

@@ -2,21 +2,9 @@
 
 import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMoon, faSun, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faTimes, faShirt, faUser, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 
-interface HeaderProps {
-  toggleTheme: () => void;
-  changeLanguage: (lang: "es" | "en") => void;
-  language: "es" | "en";
-  theme: "light" | "dark";
-}
-
-const Header: React.FC<HeaderProps> = ({
-  toggleTheme,
-  changeLanguage,
-  language,
-  theme,
-}) => {
+const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const dropdownTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -33,7 +21,7 @@ const Header: React.FC<HeaderProps> = ({
   const handleMouseLeave = () => {
     dropdownTimeout.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 300); // Mantén el menú visible por 300ms después de que el mouse salga
+    }, 300);
   };
 
   const closeAllDropdowns = () => {
@@ -44,19 +32,22 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-gradient-to-r from-gray-900 via-gray-800 to-black text-white shadow-lg transition-colors">
-      <div className="flex justify-between items-center px-6 py-4">
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-brand-600 via-brand-500 to-yorusito-secondary shadow-xl backdrop-blur-sm border-b border-brand-400/20">
+      <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
         {/* Logo */}
-        <div className="text-2xl md:text-4xl font-extrabold tracking-wide cursor-pointer">
-          <a href="/" className="hover:text-gray-400 transition-all duration-300 uppercase">
-            Yorusito
-          </a>
+        <div className="flex items-center gap-3">
+          <FontAwesomeIcon icon={faShirt} className="text-3xl text-white" />
+          <div className="text-2xl md:text-4xl font-bold tracking-wide cursor-pointer">
+            <a href="/" className="text-white hover:text-brand-100 transition-all duration-300 uppercase font-black">
+              Yorusito
+            </a>
+          </div>
         </div>
 
         {/* Menú móvil (hamburguesa) */}
         <button
           onClick={toggleMobileMenu}
-          className="md:hidden text-2xl focus:outline-none"
+          className="md:hidden text-2xl text-white focus:outline-none hover:text-brand-100 transition-colors"
         >
           <FontAwesomeIcon icon={isMobileMenuOpen ? faTimes : faBars} />
         </button>
@@ -65,13 +56,19 @@ const Header: React.FC<HeaderProps> = ({
         <nav
           className={`${
             isMobileMenuOpen ? "block" : "hidden"
-          } md:flex absolute md:static top-16 left-0 w-full md:w-auto bg-gray-900 md:bg-transparent transition-all duration-300 md:flex-row flex-col md:gap-10 text-lg font-medium`}
+          } md:flex absolute md:static top-full left-0 w-full md:w-auto bg-white md:bg-transparent shadow-lg md:shadow-none transition-all duration-300 md:flex-row flex-col md:gap-8 text-lg font-medium border-t md:border-t-0 border-brand-200`}
         >
-          <a href="/" className="block py-2 px-4 md:py-0 md:px-0 hover:text-gray-400">
-            {language === "es" ? "Inicio" : "Home"}
+          <a 
+            href="/" 
+            className="block py-4 px-6 md:py-2 md:px-4 text-yorusito-neutral md:text-white hover:text-brand-600 md:hover:text-brand-100 transition-colors border-b md:border-b-0 border-gray-100 md:rounded-lg md:hover:bg-white/10"
+          >
+            Inicio
           </a>
-          <a href="/about" className="block py-2 px-4 md:py-0 md:px-0 hover:text-gray-400">
-            {language === "es" ? "Nosotros" : "About Us"}
+          <a 
+            href="/about" 
+            className="block py-4 px-6 md:py-2 md:px-4 text-yorusito-neutral md:text-white hover:text-brand-600 md:hover:text-brand-100 transition-colors border-b md:border-b-0 border-gray-100 md:rounded-lg md:hover:bg-white/10"
+          >
+            Nosotros
           </a>
 
           {/* Dropdown de Productos */}
@@ -82,89 +79,57 @@ const Header: React.FC<HeaderProps> = ({
           >
             <a
               href="/products"
-              className="block py-2 px-4 md:py-0 md:px-0 hover:text-gray-400"
+              className="flex items-center gap-2 py-4 px-6 md:py-2 md:px-4 text-yorusito-neutral md:text-white hover:text-brand-600 md:hover:text-brand-100 transition-colors border-b md:border-b-0 border-gray-100 md:rounded-lg md:hover:bg-white/10"
             >
-              {language === "es" ? "Productos" : "Products"}
+              <FontAwesomeIcon icon={faShoppingBag} className="text-sm" />
+              Productos
             </a>
             <div
               className={`${
                 activeDropdown === "products" ? "block" : "hidden"
-              } absolute left-0 top-full mt-3 bg-gray-800 text-white py-3 px-4 rounded-lg shadow-xl border border-gray-700`}
+              } absolute left-0 top-full mt-2 bg-white text-yorusito-neutral py-4 px-2 rounded-xl shadow-2xl border border-gray-200 min-w-[200px]`}
             >
               <a
                 href="/products/polos"
-                className="block py-2 px-4 hover:bg-gray-700 rounded-md"
+                className="block py-3 px-4 hover:bg-brand-50 hover:text-brand-600 rounded-lg transition-colors font-medium"
               >
-                {language === "es" ? "Polos" : "T-Shirts"}
+                Polos
               </a>
               <a
                 href="/products/hoodies"
-                className="block py-2 px-4 hover:bg-gray-700 rounded-md"
+                className="block py-3 px-4 hover:bg-brand-50 hover:text-brand-600 rounded-lg transition-colors font-medium"
               >
                 Hoodies
               </a>
               <a
                 href="/products/pants"
-                className="block py-2 px-4 hover:bg-gray-700 rounded-md"
+                className="block py-3 px-4 hover:bg-brand-50 hover:text-brand-600 rounded-lg transition-colors font-medium"
               >
-                {language === "es" ? "Pantalones" : "Pants"}
+                Pantalones
               </a>
             </div>
           </div>
 
-          {/* Subcategorías de Polos */}
-          {activeDropdown === "polos" && (
-            <div
-              className="absolute left-full top-0 mt-3 bg-gray-800 text-white py-3 px-4 rounded-lg shadow-xl border border-gray-700"
-              onMouseEnter={() => handleMouseEnter("polos")}
-              onMouseLeave={handleMouseLeave}
-            >
-              <a
-                href="/products/polos/superstars"
-                className="block py-2 px-4 hover:bg-gray-700 rounded-md"
-              >
-                SuperStars
-              </a>
-              <a
-                href="/products/polos/romantic"
-                className="block py-2 px-4 hover:bg-gray-700 rounded-md"
-              >
-                Romantic
-              </a>
-              <a
-                href="/products/polos/gym"
-                className="block py-2 px-4 hover:bg-gray-700 rounded-md"
-              >
-                Gym
-              </a>
-            </div>
-          )}
-
-          <a href="/faq" className="block py-2 px-4 md:py-0 md:px-0 hover:text-gray-400">
+          <a 
+            href="/faq" 
+            className="block py-4 px-6 md:py-2 md:px-4 text-yorusito-neutral md:text-white hover:text-brand-600 md:hover:text-brand-100 transition-colors border-b md:border-b-0 border-gray-100 md:rounded-lg md:hover:bg-white/10"
+          >
             FAQ
           </a>
-          <a href="/contact" className="block py-2 px-4 md:py-0 md:px-0 hover:text-gray-400">
-            {language === "es" ? "Contacto" : "Contact"}
+          <a 
+            href="/contact" 
+            className="block py-4 px-6 md:py-2 md:px-4 text-yorusito-neutral md:text-white hover:text-brand-600 md:hover:text-brand-100 transition-colors md:rounded-lg md:hover:bg-white/10"
+          >
+            Contacto
           </a>
         </nav>
 
-        {/* Controles */}
+        {/* Botón de cuenta */}
         <div className="hidden md:flex items-center gap-4">
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all duration-300 shadow-md"
-            title={language === "es" ? "Cambiar Tema" : "Toggle Theme"}
-          >
-            <FontAwesomeIcon icon={theme === "dark" ? faSun : faMoon} size="lg" />
+          <button className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-all duration-300 backdrop-blur-sm border border-white/20 hover:border-white/30">
+            <FontAwesomeIcon icon={faUser} />
+            <span className="font-medium">Mi Cuenta</span>
           </button>
-          <select
-            onChange={(e) => changeLanguage(e.target.value as "es" | "en")}
-            value={language}
-            className="px-3 py-2 border border-gray-700 rounded-lg bg-gray-800 text-white hover:border-gray-500 focus:outline-none"
-          >
-            <option value="es">Español</option>
-            <option value="en">English</option>
-          </select>
         </div>
       </div>
     </header>

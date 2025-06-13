@@ -1,4 +1,5 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faMoon, faSun, faSearch, faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faBars, faTimes, faShirt, faUser, faShoppingBag, faHeart, faStar, faArrowRight, faFire, faCrown, faArrowLeft, faShare, faExpand, faShieldAlt, faTruck, faCheckCircle, faBullseye, faEye, faAward, faUsers, faLightbulb, faRocket, faHandshake, faQuestionCircle, faChevronDown, faChevronUp, faPalette, faClock, faMapMarkerAlt, faSprayCan, faEnvelope, faPhone, faPaperPlane, faComment, faExclamationTriangle, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faWhatsapp, faInstagram, faFacebook } from '@fortawesome/free-brands-svg-icons';
 
-library.add(faMoon, faSun, faSearch, faBars, faTimes);
+library.add(faSearch, faBars, faTimes, faShirt, faUser, faShoppingBag, faHeart, faStar, faArrowRight, faFire, faCrown, faArrowLeft, faShare, faExpand, faShieldAlt, faTruck, faCheckCircle, faWhatsapp, faBullseye, faEye, faAward, faUsers, faLightbulb, faRocket, faHandshake, faQuestionCircle, faChevronDown, faChevronUp, faPalette, faClock, faMapMarkerAlt, faSprayCan, faEnvelope, faPhone, faPaperPlane, faComment, faExclamationTriangle, faSpinner, faInstagram, faFacebook);
